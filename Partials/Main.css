@@ -1,0 +1,699 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: white;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+    margin: 0;
+}
+
+.cookieBox {
+    background-color: rgba(240, 240, 240, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    max-width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+#termsBox {
+    margin-top: 10px;
+    border: 1px solid #63BDB5;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    display: none;
+}
+
+.cookieBox button {
+    background-color: lightblue;
+    color: black;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.cookieBox button:hover {
+    background-color: #b3e0ff;
+}
+.LoginContainer {
+    width: 300px;
+    background: black;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.LoginContainer input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background: white;
+}
+
+.LoginContainer button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: lightblue;
+    cursor: pointer;
+}
+header {
+    background-color: black;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+}
+
+header .logo h1 {
+    font-size: 22px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: lightblue;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-top: 60px;
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    text-align: left;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background: #f5f5f5;
+    color: black;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+input:focus {
+    border-color: lightblue;
+}
+
+button {
+    background-color: lightblue;
+    color: black;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #b3e0ff;
+}
+
+.rememberMe {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    color: white;
+    font-size: 14px;
+}
+
+.rememberMe input {
+    width: auto;
+    margin-right: 10px;
+}
+
+
+p a {
+    color: lightblue;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+.profile-container {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-top: 60px;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid lightblue;
+    object-fit: cover;
+}
+
+.profile-container h2 {
+    margin: 10px 0;
+}
+
+.profile-container p {
+    font-size: 14px;
+    color: #ccc;
+}
+
+@media (max-width: 768px) {
+    body {
+        height: auto;
+        padding-top: 60px;
+    }
+
+    .container, .profile-container {
+        width: 90%;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    nav ul li {
+        display: block;
+    }
+
+    .cookieBox {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cookieBox {
+        width: 95%;
+        padding: 10px;
+    }
+
+    header .logo h1 {
+        font-size: 18px;
+    }
+
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    input {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    button {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+
+.headerSami {
+    position: fixed;
+    display: flex;
+    height: 60px;
+    top: 0;
+    background-color: black;
+    z-index: 1000;
+}
+
+.leftHeader {
+    position: relative;
+    left: 0;
+    display: flex;
+    width: 350px;
+    transition: 1s;
+
+}
+.chirpifyLogo {
+    height: 40px;
+    position: relative;
+    top: 10px;
+    left: 90px;
+    transition: 1s;
+}
+.leftHeader li  {
+    list-style: none;
+    text-decoration: none;
+    position: relative;
+    left: 16px;
+}
+.leftHeader a {
+    text-decoration: none;
+    transition: 1s;
+}
+.leftHeader h3  {
+    position: relative;
+    left: 135px; top: -24px;
+    color: white;
+    text-decoration: none;
+    transition: 1s;
+}
+.chirpifyLogo:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+
+.middleHeader {
+    display: flex;
+    flex: 1;
+    min-width: 580px;
+    border: 1px solid rgb(70, 70, 70);
+    
+}
+.middleHeader button {
+    background-color:transparent;
+    position: relative;
+    flex: 2;
+    border: none;
+    color: white;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 500;
+}
+.middleHeader button:hover{
+    background-color: rgba(204, 204, 204, 0.208);
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+
+.rightHeader {
+    position: relative;
+    top: 0;
+    display: flex;
+    width: 499px;
+}
+.rightHeader input {
+    position: relative;
+    left: 50px;
+    top: 0;
+    height: 40px;
+    width: 320px;
+    border: 1px solid rgb(70, 70, 70);
+    border-radius: 50px;
+    background-color: transparent;
+    transition: 1s;
+}
+.rightHeader input::placeholder{
+    position: relative;
+    left: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+}
+.button{
+    margin-left: 3.5em;
+    margin-bottom:2em;
+    border: 1px solid rgb(70, 70, 70);
+    border-radius: 50px;
+}
+
+.navBar {
+    position: fixed;
+    display: flex;
+    width: 350px;
+    top: 50px;
+    left: 0;
+    border-right: 1px solid rgb(70, 70, 70);
+    height: 700px;
+    transition: 1s;
+
+}
+
+.navBar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.navBar li {
+    line-height: 50px;
+    align-items: center;
+}
+
+.navBar ul li a{
+    position: relative;
+    top: 30px;
+    padding: 10px 16px 10px 16px;
+    border-radius: 15px;
+    left: 96px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    text-decoration: none;
+    align-items: center;
+    transition: 1s;
+}
+
+.navBar i {
+    padding-right:10px ;
+}
+
+.navBar a {
+    font-size: 100px;
+}
+
+.down {
+    position: relative;
+    top: 40px;
+    
+}
+
+.navBar a:hover {
+    background-color: rgba(201, 201, 201, 0.153);
+    transition: 0.2s;
+    text-decoration: none;
+    
+}
+
+.navBar span {
+    font-size: 15px;
+}
+
+.body {
+    position: relative;
+    margin-top: 60px;
+    left: 350px;
+    height: 100%;
+    width:580px ;
+    border-right: 1px solid rgb(70, 70, 70);
+    transition: 1s ease-out;
+}
+
+.happening {
+    width: 580px;
+    height: 130px;
+    z-index: 100;
+    border-bottom: 1px solid rgb(70, 70, 70);
+}
+.profileImg{
+    position: relative;
+    top: 10px;
+    left: -93px;
+    margin-left: 100px;
+    width: 60px;
+    border-radius: 60px;
+    cursor: pointer;
+}
+
+.form {
+    position: relative;
+    left: 200px;
+    top: -20px;
+}
+.form input {
+    position: relative;
+    right: 200px;
+    top: -20px;
+    width: 120px;
+    height: 40px;
+    background-color: black;
+    border: none;
+    cursor: pointer;
+}
+
+.form textarea {
+    position: relative;
+    top: -17px;
+    left: -130px;
+    width: 200px;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgba(255, 0, 0, 0);
+    color: white;
+    resize: none;
+    font-size: 20px;
+}
+.form textarea:focus{
+    outline: none;
+}
+.form textarea::placeholder {
+    position: relative;
+    font-size: 20px;
+}
+
+.form button {
+    position: relative;
+    top: -80px;
+    left: 280px;
+    border-radius: 10px;
+    width: 80px;
+    background-color: rgb(255, 255, 255);
+}
+
+
+
+
+
+
+
+
+@media (max-width: 1350px){
+    .leftHeader {
+        width: 200px;
+        transition: 1s ease-out;
+        position: relative;
+        left: 10px;
+    }
+    .chirpifyLogo{
+        position: relative;
+        left: -8px;
+        transition: 1s ease-out;
+    }
+    .leftHeader h3 {
+        position: relative;
+        left: 30px;
+        transition: 1s ease-out;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .navBar {
+        width: 201px;
+        transition: 1s ease-out;
+    }
+    .navBar ul li a {
+        position: relative;
+        left: 10px;
+        transition: 1s ease-out;
+
+    }
+
+    .navBar span {
+        opacity: 1;
+    }
+
+    .body {
+        position: relative;
+        left: 201px;
+        transition: 1s ease-out;
+
+    }
+}
+
+@media (max-width: 1200px){
+    .leftHeader {
+        width: 80px;
+        transition: 1s ease-out;
+        position: relative;
+        left: 10px;
+    }
+
+    .navBar {
+        width: 81px;
+        transition: 1s ease-out;
+    }
+
+
+
+    .leftHeader h3 {
+        visibility: hidden; 
+        transition: opacity 0.5s ease, visibility 0s ease 0s;  
+    }
+    .navBar span{
+        display: none;
+        opacity: 1;
+    }
+
+    .body {
+        position: relative;
+        left: 81px;
+        transition: 1s ease-out;
+
+    }
+}
+
+@media (max-width:1060px){
+
+
+    .rightHeader input {
+       width: 230px;
+       transition: 1s;
+    }
+}
+
+@media (max-width:970px){
+    .rightHeader {
+        display:none;
+    }
+    .leftHeader {
+        width: 200px;
+        transition: 1s ease-out;
+        position: relative;
+        left: 10px;
+        
+    }
+    .chirpifyLogo{
+        position: relative;
+        left: 58px;
+        transition: 1s ease-out;
+
+    }
+
+    .navBar {
+        width: 201px;
+        transition: 1s ease-out;
+    }
+    .navBar ul li a {
+        position: relative;
+        left: 71px;
+        transition: 1s ease-out;
+
+    }
+
+    .body {
+        position: relative;
+        left: 201px;
+        transition: 1s ease-out;
+
+    }
+}
+
+@media (max-width:800px) {
+    .leftHeader {
+        width: 80px;
+        transition: 1s ease-out;
+        position: relative;
+        left: 10px;
+        
+    }
+    .chirpifyLogo{
+        position: relative;
+        left: -8px;
+        transition: 1s ease-out;
+
+    }
+
+    .navBar {
+        width: 81px;
+        transition: 1s ease-out;
+    }
+    .navBar ul li a {
+        position: relative;
+        left: 10px;
+        transition: 1s ease-out;
+
+    }
+
+    .body {
+        position: relative;
+        left: 81px;
+        transition: 1s ease-out;
+
+    }
+}
+.post{
+    position: relative;
+    margin-left: 25px;
+    justify-content: space-between;
+}
