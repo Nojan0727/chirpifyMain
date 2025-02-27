@@ -15,17 +15,20 @@ $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if ($username === $valid_username && $password === $valid_password) {
+    $username = isset($_POST['username']) ? trim(htmlspecialchars(strip_tags($_POST['username']))) : '';
+    $password = isset($_POST['password']) ? trim(htmlspecialchars(strip_tags($_POST['password']))) : '';
+
+    if (empty($username) || empty($password)) {
+        $error = "Username and password are required.";
+    } elseif ($username === $valid_username && $password === $valid_password) {
         $_SESSION['user'] = $username;
-
-        if (isset($_POST['rememberMe'])) {
-            setcookie("remembered_user", $username, time() + (86400 * 30), "/");
+        if (isset($_POST['remember'])) {
+            setcookie('remembered_user', $username, time() + (86400 * 30), "/", "", false, true);
         }
-
         header("Location: ../Partials/post.php");
         exit();
     } else {
-        $error = "Username or Password is incorrect!";
+        $error = "Invalid username or password.";
     }
 }
 ?>
