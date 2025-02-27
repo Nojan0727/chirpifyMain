@@ -14,8 +14,6 @@ $valid_password = "password123";
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = isset($_POST['username']) ? trim(htmlspecialchars(strip_tags($_POST['username']))) : '';
-    $password = isset($_POST['password']) ? trim(htmlspecialchars(strip_tags($_POST['password']))) : '';
 
     if ($username === $valid_username && $password === $valid_password) {
         $_SESSION['user'] = $username;
