@@ -15,7 +15,8 @@ if (!isset($_COOKIE["cookie_consent"])) {
     </head>
     <body>
 
-    <div id="cookieBox" class="cookieBox">
+    <div class="cookieOverlay" id="cookieOverlay"></div>
+    <div class="cookieBox" id="cookieBox">
         <p>This website uses cookies to enhance your experience. For more information, please read our policy.</p>
         <button onclick="toggleTerms()">Show Terms & Conditions</button>
 
@@ -52,6 +53,7 @@ if (!isset($_COOKIE["cookie_consent"])) {
 <body>
 
 <div class="LoginContainer">
+   
     <h2>Login</h2>
     <form action="login.php" method="POST">
         <label for="username">Username:</label>
