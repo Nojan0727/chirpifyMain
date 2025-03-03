@@ -53,7 +53,6 @@ if (!isset($_COOKIE["cookie_consent"])) {
 <body>
 
 <div class="LoginContainer">
-   
     <h2>Login</h2>
     <form action="login.php" method="POST">
         <label for="username">Username:</label>
