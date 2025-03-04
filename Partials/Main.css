@@ -401,12 +401,22 @@ p a:hover {
     color: rgb(255, 255, 255);
     font-size: 14px;
 }
-.button{
-    margin-left: 3.5em;
-    margin-bottom:2em;
-    border: 1px solid rgb(70, 70, 70);
-    border-radius: 50px;
+.searchButton{
+    position: relative;
+    top: -60px;
+    width: 60px;
+    left: 375px;
+    border: none;
+    border-radius: 9px;
+    transition: 1s;
+    color: rgb(0, 0, 0);
 }
+.searchQuery {
+    position: relative;
+    top: 80px;
+    right: 200px;
+}
+
 
 .navBar {
     position: fixed;
@@ -547,7 +557,7 @@ p a:hover {
 
 
 
-@media (max-width: 1350px){
+@media (max-width: 1370px){
     .leftHeader {
         width: 200px;
         transition: 1s ease-out;
@@ -590,7 +600,7 @@ p a:hover {
     }
 }
 
-@media (max-width: 1200px){
+@media (max-width: 1225px){
     .leftHeader {
         width: 80px;
         transition: 1s ease-out;
@@ -622,14 +632,20 @@ p a:hover {
     }
 }
 
-@media (max-width:1060px){
+@media (max-width:1100px){
 
 
     .rightHeader input {
        width: 230px;
        transition: 1s;
+       left: 5px;
     }
-}
+
+   .searchButton {
+    position: relative;
+    left: 238px;
+    transition: 1s;
+   }
 
 @media (max-width:970px){
     .rightHeader {

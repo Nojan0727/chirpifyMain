@@ -69,13 +69,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
         <form action="" method="GET">
             <label>
                 <input type="text" name="query" style="color: white;" placeholder="Looking for something?">
-                <button class="button" type="submit">Search</button> <!-- FIX: Added a search button -->
             </label>
+            <button class="searchButton" type="submit">Search</button> <!-- FIX: Added a search button -->
         </form>
+
         <?php
         if (isset($_GET['query'])) {
             $searchTerm = htmlspecialchars($_GET['query']);
-            echo "<p>You searched for: <strong>" . $searchTerm . "</strong></p>";
+            echo "<p class= 'searchQuery'>You searched for: <strong>" . $searchTerm . "</strong></p>";
         }
         ?>
 
