@@ -11,24 +11,21 @@ include("database.php");
 
 
 
-// Redirect to login if not logged in
 if (!isset($_SESSION['user'])) {
     header("Location: index.php");
     exit();
 }
 
-// Ensure the uploads folder exists
 $upload_dir = "uploads/";
 if (!is_dir($upload_dir)) {
     mkdir($upload_dir, 0777, true);
 }
 
-// Handle new posts
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
     $content = trim($_POST['content']);
     $image_path = "";
 
-    // Handle image upload
     if (!empty($_FILES['image']['name'])) {
         $file_name = basename($_FILES['image']['name']);
         $target_file = $upload_dir . $file_name;
@@ -38,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
         }
     }
 
-    // Add post to session
     $_SESSION['posts'][] = [
         'user' => $_SESSION['user'],
         'content' => $content,
@@ -47,8 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
         'likes' => 0,
         'reposts' => 0
     ];
-
-    // ✅ Prevents duplicate posts on refresh by redirecting
+    
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
