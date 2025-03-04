@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($username === $valid_username && $password === $valid_password) {
         $_SESSION['user'] = $username;
         if (isset($_POST['remember'])) {
-            setcookie('remembered_user', $username, time() + (86400 * 30), "/", "", false, true);
+            setcookie('remembered_user', $username, time() + (30), "/", "", false, true);
         }
         header("Location: ../Partials/post.php");
         exit();
