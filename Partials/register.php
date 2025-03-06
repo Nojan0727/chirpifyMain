@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = trim(isset($_POST['username']) ? $_POST['username'] : '');
+    $username = trim($_POST['username'] ?? '');
     $password = trim(isset($_POST['password']) ? $_POST['password'] : '');
     $age = trim(isset($_POST['age']) ? $_POST['age'] : '');
     $bio = trim(isset($_POST['bio']) ? $_POST['bio'] : '');
@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <button type="submit">Register</button>
     </form>
-    <p>Already have an account? <a href="login.php">Login</a></p>
+    <p>Already have an account? <a href="index.php">Login</a></p>
 </div>
 </body>
 </html>

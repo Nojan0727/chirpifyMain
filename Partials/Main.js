@@ -55,3 +55,4 @@ document.querySelector('input[name="query"]').addEventListener('keypress', funct
         }
     }
 });
+window.location.href = "post.php";

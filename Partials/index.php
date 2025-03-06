@@ -39,6 +39,26 @@ if (!isset($_COOKIE["cookie_consent"])) {
     <?php
     exit();
 }
+
+$valid_username = "testuser";
+$valid_password = "password123";
+$error = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = htmlspecialchars(trim($_POST['username'] ?? ''));
+    $password = htmlspecialchars(trim($_POST['password'] ?? ''));
+
+    if ($username === $valid_username && $password === $valid_password) {
+        $_SESSION['user'] = $username;
+        if (isset($_POST['remember'])) {
+            setcookie('remembered_user', $username, time() + 86400, "/", "", false, true);
+        }
+        header("Location: Partials/post.php");
+        exit();
+    } else {
+        $error = "Invalid username or password.";
+    }
+}
 ?>
 
 <!doctype html>
@@ -46,7 +66,7 @@ if (!isset($_COOKIE["cookie_consent"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chirpify - Login</title>
+    <title>Chirpify - Login & Register</title>
     <link rel="stylesheet" href="Main.css">
     <script defer src="Main.js"></script>
 </head>
@@ -54,17 +74,29 @@ if (!isset($_COOKIE["cookie_consent"])) {
 
 <div class="LoginContainer">
     <h2>Login</h2>
-    <form action="login.php" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" placeholder="Username" required>
+    <form method="POST">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" placeholder="Username" required>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" placeholder="Password" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" placeholder="Password" required>
 
-        <button type="submit">Login</button>
+            <label><input type="checkbox" name="remember"> Remember Me</label>
+            <button type="submit">Login</button>
+            <p>Don't have an account? <a href="register.php" onclick="toggleForm('register')">Register</a></p>
+        </div>
+        <p style="color:red;"> <?php echo $error; ?> </p>
     </form>
-    <p>Don't have an account? <a href="register.php">Register</a></p>
 </div>
+
+<script>
+    function toggleForm(formType) {
+        document.getElementById('formTitle').innerText = formType === 'register' ? 'Register' : 'Login';
+        document.getElementById('loginForm').style.display = formType === 'register' ? 'none' : 'block';
+        document.getElementById('registerForm').style.display = formType === 'register' ? 'block' : 'none';
+    }
+</script>
 
 </body>
 </html>
