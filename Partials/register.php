@@ -2,8 +2,12 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include "header.php";
-include("database.php");
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $username = trim($_POST['username'] ?? '');
+    $password = trim(isset($_POST['password']) ? $_POST['password'] : '');
+    $age = trim(isset($_POST['age']) ? $_POST['age'] : '');
+    $bio = trim(isset($_POST['bio']) ? $_POST['bio'] : '');
+    $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);

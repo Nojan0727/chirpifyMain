@@ -55,3 +55,9 @@ document.querySelector('input[name="query"]').addEventListener('keypress', funct
         }
     }
 });
+function toggleForm(formType) {
+    document.getElementById('formTitle').innerText = formType === 'register' ? 'Register' : 'Login';
+    document.getElementById('loginForm').style.display = formType === 'register' ? 'none' : 'block';
+    document.getElementById('registerForm').style.display = formType === 'register' ? 'block' : 'none';
+}
+window.location.href = "post.php";
