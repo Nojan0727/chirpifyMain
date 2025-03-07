@@ -7,8 +7,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chirpify</title>
+    <title>Chirpify.nl</title>
     <link rel="stylesheet" href="Main.css">
+    <link rel="icon" href="Image/Chripify.png">
 </head>
 <body>
 
@@ -22,7 +23,6 @@
             <?php if (isset($_SESSION['user'])): ?>
 
             <?php else: ?>
-                <li><a href="login.php">Login</a></li>
                 <li><a href="register.php">Sign Up</a></li>
             <?php endif; ?>
         </ul>
