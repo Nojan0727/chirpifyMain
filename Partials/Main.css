@@ -77,9 +77,9 @@ body {
     border-radius: 10px;
     text-align: center;
     margin: auto;
-    position: absolute;
-    top: 50%;
-    left: 20%;
+    position: relative;
+    top: 0;
+    left: 650px;
     transform: translate(-50%, -50%);
 }
 
@@ -99,6 +99,13 @@ body {
     border-radius: 5px;
     background: lightblue;
     cursor: pointer;
+}
+.loginError {
+    position: relative;
+    top: 50px; 
+    color: red;
+    left: 700px;
+    width: 300px;
 }
 header {
     background-color: black;
@@ -139,13 +146,14 @@ nav ul li a:hover {
 }
 
 .container {
+    position: relative;
+    top: 60px; left: 650px;
     background-color: #1a1a1a;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
     width: 350px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    margin-top: 60px;
 }
 
 h2 {
@@ -218,9 +226,11 @@ p a:hover {
 }
 
 .error {
+    position: relative;
+    top: 50px; 
     color: red;
-    font-weight: bold;
-    margin-bottom: 10px;
+    left: 700px;
+    width: 300px;
 }
 
 
@@ -427,7 +437,6 @@ p a:hover {
     border-right: 1px solid rgb(70, 70, 70);
     height: 700px;
     transition: 1s;
-
 }
 
 .navBar ul {
@@ -437,7 +446,7 @@ p a:hover {
 }
 
 .navBar li {
-    line-height: 50px;
+    line-height: 45px;
     align-items: center;
 }
 
@@ -464,7 +473,6 @@ p a:hover {
 
 .down {
     position: relative;
-    top: 40px;
     
 }
 
@@ -482,6 +490,7 @@ p a:hover {
 .body {
     position: relative;
     margin-top: 60px;
+    margin-left:269px ;
     left: 350px;
     height: 100%;
     width:580px ;
@@ -646,7 +655,7 @@ p a:hover {
     left: 238px;
     transition: 1s;
    }
-
+}
 @media (max-width:970px){
     .rightHeader {
         display:none;
@@ -695,7 +704,8 @@ p a:hover {
     .chirpifyLogo{
         position: relative;
         left: -8px;
-        transition: 1s ease-out;
+        transition: 1s ease-out;       
+        margin-left: -10px;
 
     }
 
@@ -710,15 +720,38 @@ p a:hover {
 
     }
 
+}
+
     .body {
         position: relative;
         left: 81px;
         transition: 1s ease-out;
 
     }
-}
-.post{
-    position: relative;
-    margin-left: 25px;
-    justify-content: space-between;
-}
+
+    .post {
+        position: relative;
+        left: 10px;
+    }
+
+    .huy {
+        position: relative;
+        top: 20px; left: 20px;
+        list-style: none;
+        text-decoration: none;
+        display: flex;
+        padding:10px 10px 10px 10px; height: 20px;
+    }
+    .huy:hover {
+        align-items: center;
+        background-color: grey;
+        
+        
+    }
+
+    .middleHeader h2 {
+        position: relative;
+        left: 70px; top: 10px;
+        cursor: pointer;
+    }
+

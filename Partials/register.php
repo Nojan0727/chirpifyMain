@@ -4,49 +4,60 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = trim(isset($_POST['username']) ? $_POST['username'] : '');
-    $password = trim(isset($_POST['password']) ? $_POST['password'] : '');
-    $age = trim(isset($_POST['age']) ? $_POST['age'] : '');
-    $bio = trim(isset($_POST['bio']) ? $_POST['bio'] : '');
+include("database.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
+    $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
+    $profilePic = $_FILES["profilePic"];
+    $age = filter_input(INPUT_POST, "age", FILTER_SANITIZE_NUMBER_INT);
+    $profileBio = filter_input(INPUT_POST, "bio", FILTER_SANITIZE_SPECIAL_CHARS);
     $error = "";
 
-    $upload_dir = "../uploads/";
-    $real_upload_dir = __DIR__ . "/../uploads/";
+    if (empty($username) || empty($password) || empty($profilePic['name']) || empty($profileBio) || empty($age)) {
+        echo "Please fill out all fields.";
+    
+    }else {
+        
 
-    if (!is_dir($real_upload_dir)) {
-        mkdir($real_upload_dir, 0777, true);
-    }
+        $aploud = "uploads/";
+        $file_name = $aploud . basename ($profilePic["name"]);;
+        $aploud_check = 1;
 
-    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === 0) {
-        $file_ext = pathinfo($_FILES["profile_picture"]["name"], PATHINFO_EXTENSION);
-        $file_name = uniqid() . "." . $file_ext;
-        $target_file = $real_upload_dir . $file_name;
+        if (getimagesize($profilePic["tmp_name"]) === false){
+            echo "File is not an image";
+            $apload_check = 0;
+        }
 
-        $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
-        if (!in_array(strtolower($file_ext), $allowed_types)) {
-            $error = "Invalid file type. Only JPG, PNG, and GIF are allowed.";
-        } else {
-            if (move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $target_file)) {
-                $_SESSION['profile_picture'] = $upload_dir . $file_name;
-            } else {
-                $error = "Error uploading file.";
+        if ($profilePic["size"] > 5000000){
+            echo "File is too big";
+            $aploud_check = 0;
+        }
+
+        if ($apload_check = 1){
+
+            if (move_uploaded_file($profilePic["tmp_name"], $file_name)){
+
+                echo    "";
             }
         }
-    }
 
-    if (empty($error)) {
-        $_SESSION['user'] = $username;
-        $_SESSION['age'] = $age;
-        $_SESSION['bio'] = $bio;
-        $_SESSION['password'] = password_hash($password, PASSWORD_DEFAULT);
 
-        header("Location: ../Partials/post.php");
-        exit();
-    } else {
-        echo "<p style='color:red;'>$error</p>";
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO users (user, password, age, bio, profile_pic) VALUES ('$username', '$hash', '$age', '$profileBio', '$file_name')";
+
+       try {
+        mysqli_query($conn, $sql);
+        echo "Registration succesfull";
+
+        header("location: index.php");
+       }catch (mysqli_sql_exception){
+        echo "<p class = 'error'>This Username is allready taken</p>";
+       }
     }
 }
+    mysqli_close($conn);
 ?>
 
 <!doctype html>
@@ -62,24 +73,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <h2>Create an account</h2>
     <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
     <form action="register.php" method="POST" enctype="multipart/form-data">
+        
         <label for="profile_picture">Profile Picture:</label>
-        <input type="file" name="profile_picture" id="profile_picture" required>
+        <input type="file" name = "profilePic" id="profile_picture" required>
 
         <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required>
+        <input type="text" name = "username" id="username" required>
 
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
+        <input type="password" name ="password"id="password" required>
 
         <label for="age">Age:</label>
-        <input type="number" name="age" id="age" required>
+        <input type="number" name = "age" id="age" required>
 
         <label for="bio">Bio:</label>
-        <input type="text" name="bio" id="bio" required>
+        <input type="text" name = "bio" id="bio" required>
 
-        <button type="submit">Register</button>
+         <input type="submit" name = "submit" value = "register" >
     </form>
-    <p>Already have an account? <a href="login.php">Login</a></p>
+    <p>Already have an account? <a href="index.php">Login</a></p>
 </div>
 </body>
 </html>

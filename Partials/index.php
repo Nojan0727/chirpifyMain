@@ -1,9 +1,14 @@
 <?php
-session_start();
-include "header.php";
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+
+include "header.php";
+include("database.php");
 if (!isset($_COOKIE["cookie_consent"])) {
-    ?>
+
+?>
+
     <!doctype html>
     <html lang="en">
     <head>
@@ -37,8 +42,8 @@ if (!isset($_COOKIE["cookie_consent"])) {
     </body>
     </html>
     <?php
-    exit();
 }
+
 ?>
 
 <!doctype html>
@@ -47,25 +52,65 @@ if (!isset($_COOKIE["cookie_consent"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chirpify - Login</title>
-    <link rel="stylesheet" href="Main.css">
+    <link rel="stylesheet" href="../Main.css">
     <script defer src="Main.js"></script>
 </head>
 <body>
 
-<div class="LoginContainer">
+<div class="container">
    
     <h2>Login</h2>
-    <form action="login.php" method="POST">
+    <form action="" method = "post">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" placeholder="Username" required>
 
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" placeholder="Password" required>
 
-        <button type="submit">Login</button>
+        <input type="submit" name="submit" value="Log In"><br>
     </form>
     <p>Don't have an account? <a href="register.php">Register</a></p>
 </div>
 
+
 </body>
 </html>
+
+<?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
+        $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if (empty($username)){
+            echo "Please enter your username"; 
+        } elseif (empty($password)){
+            echo "Please enter your password"; 
+        } else {
+            $sql = "SELECT password FROM users WHERE user = '$username' ";
+            $result = mysqli_query($conn, $sql);
+
+            if (mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                $hash = $row["password"];
+
+                if (password_verify($password, $hash)) {
+                    $_SESSION["username"] = $username;
+                    echo "Login successful";
+                    header("Location: post.php");
+
+                    session_start();
+                    $_SESSION['user'] = 'username';
+                    exit;
+                } else {
+                    echo "<p class = 'error'>Incorrect username or password</p>";
+                }
+            } else {
+                echo "<p class = 'error'>Incorrect username or password </p>";
+                
+            }
+        }
+    }
+
+    mysqli_close($conn);
+?>
