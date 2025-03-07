@@ -33,9 +33,7 @@ if (!isset($_COOKIE["cookie_consent"])) {
         <button onclick="acceptCookies()">Accept</button>
         <button onclick="rejectCookies()">Reject</button>
     </div>
-
-    </body>
-    </html>
+    
     <?php
     exit();
 }
@@ -51,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($username === $valid_username && $password === $valid_password) {
         $_SESSION['user'] = $username;
         if (isset($_POST['remember'])) {
-            setcookie('remembered_user', $username, time() + 86400, "/", "", false, true);
+            setcookie('remembered_user', $username, time() + 1, "/", "", false, true);
         }
         header("Location: Partials/post.php");
         exit();
@@ -60,18 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chirpify - Login & Register</title>
-    <link rel="stylesheet" href="Main.css">
-    <script defer src="Main.js"></script>
-</head>
-<body>
-
 <div class="LoginContainer">
     <h2>Login</h2>
     <form method="POST">
