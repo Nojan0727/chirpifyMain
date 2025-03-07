@@ -442,7 +442,7 @@ p a:hover {
     width: 350px;
     top: 50px;
     left: 0;
-    border-right: 1px solid rgb(70, 70, 70);
+
     height: 700px;
     transition: 1s;
 }
@@ -533,6 +533,7 @@ p a:hover {
     height: 100%;
     width:580px ;
     border-right: 1px solid rgb(70, 70, 70);
+    border-left: 1px solid rgb(70, 70, 70);
     transition: 1s ease-out;
 }
 
