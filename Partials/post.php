@@ -1,8 +1,11 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start();
 
 if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -60,17 +63,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
     </div>
 
     <div class="rightHeader">
-        <!-- FIX: Added correct form action & method -->
+        
         <form action="" method="GET">
             <label>
                 <input type="text" name="query" style="color: white;" placeholder="Looking for something?">
-                <button class="button" type="submit">Search</button> <!-- FIX: Added a search button -->
             </label>
+            <button class="searchButton" type="submit">Search</button>
         </form>
+
         <?php
         if (isset($_GET['query'])) {
             $searchTerm = htmlspecialchars($_GET['query']);
-            echo "<p>You searched for: <strong>" . $searchTerm . "</strong></p>";
+            echo "<p class= 'searchQuery'>You searched for: <strong>" . $searchTerm . "</strong></p>";
         }
         ?>
 
@@ -78,15 +82,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
 </div>
 <nav class="navBar">
     <ul>
-        <li><a href="#"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+        <li><a href="post.php"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
         <li><a href="#"><i class="fas fa-search"></i> <span>Search</span></a></li>
         <li><a href="#"><i class="fa-regular fa-compass"></i> <span>Explore</span></a></li>
         <li><a href="#"><i class="fa-regular fa-bell"></i> <span>Messages</span></a></li>
         <li><a href="#"><i class="fa-regular fa-envelope"></i> <span>Notification</span></a></li>
         <li><a href="#"><i class="fa-regular fa-square-plus"></i> <span>Create</span></a></li>
-        <li><a href="#"><i class="fa-regular fa-user"></i> <span>Profile</span></a></li>
+        <li><a href="profile.php"><i class="fa-regular fa-user"></i> <span>Profile</span></a></li>
         <li class="down"><a href="#"><i class="fas fa-crown"></i><span>Premium</span></a></li>
         <li class="down"><a href="#"><i class="fa fa-bars"></i><span>More</span></a></li>
+        <li class="down"><a href="index.php"><i class="fa-solid fa-right-from-bracket"></i><span>Log out</span></a></li>
+
     </ul>
 </nav>
 
