@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
     $_SESSION['posts'][] = [
         'user' => $_SESSION['user'],
         'content' => $content,
+        'profile_pic' => $_SESSION['profile_pic'],
         'image' => $image_path,
         'likes' => 0,
         'reposts' => 0
@@ -128,17 +129,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
             <button type="submit">Post!</button>
         </form>
 
-        <h2 class="post">Recent Posts</h2>
+        <div style = "postion: relative; border-bottom: 1px solid rgb(70, 70, 70); height: 0 ;">
+        <h2 class="recentPost">Recent Posts</h2>
+        </div>
+        
         <?php if (!empty($_SESSION['posts'])): ?>
             <?php foreach (array_reverse($_SESSION['posts']) as $index => $post): ?>
                 <div class="post">
-                    <p><strong><?php echo htmlspecialchars($post['user']); ?>:</strong></p>
-                    <p><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
+                    
+                     <p class = "names">
+                        <img class="postImg" src="<?php echo $post['profile_pic']; ?>" >
+                        <strong><?php echo htmlspecialchars($post['user']); ?></strong>
+                        <span>@<?php echo htmlspecialchars($post['user']); ?></spanp>
+                    </p>
+
+                    <p class = "content"> 
+                        <?php echo nl2br(htmlspecialchars($post['content'])); ?>
+                    </p>
+
+                    <p class= "postedImg">
                     <?php if (!empty($post['image'])): ?>
-                        <img src="<?php echo htmlspecialchars($post['image']); ?>" alt="Post Image" 
+                        <img src="<?php echo htmlspecialchars($post['image']); ?>" alt="Image" 
                         style="max-width: 500px;  border-radius: 15px; min-width:500px ; max-height: 300px; object-fit:cover;
                         object-position: center;">
                     <?php endif; ?>
+                    </p>
 
                     <p class = "likes">
                         <!-- Like Icon -->

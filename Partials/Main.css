@@ -587,10 +587,40 @@ p a:hover {
 }
 
 .likes {
-    width: 550px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgb(70, 70, 70);
+   padding-bottom: 10px;
+   padding-top: 10px;
+   cursor: pointer;
 }
+
+
+.names img {
+    position: relative;
+    width: 40px;
+    border-radius: 60px;
+    cursor: pointer;
+    object-fit: cover;
+    object-position: center;
+}
+.names strong{
+    position: relative;
+    top: -25px;
+    text-transform: capitalize;
+}
+.names span{
+    position: relative;
+    top: -25px;
+    color: grey;
+}
+
+.content {
+    position: relative;
+    top: -20px; left: 45px;
+}
+.postedImg {
+    position: relative;
+    left: 45px;
+}
+
 
 
 
@@ -762,9 +792,19 @@ p a:hover {
 
     }
 
-    .post {
+    .post  {
         position: relative;
-        left: 10px;
+        left: 10px;  top: 20px;
+        border-bottom: 1px solid rgb(70, 70, 70);
+        width: 550px;
+        margin-bottom: 20px;
+
+    }
+
+    .recentPost {
+        position: relative;
+        top: -60px; left: 210px;
+        
     }
 
     .huy {
