@@ -586,6 +586,12 @@ p a:hover {
     background-color: rgb(255, 255, 255);
 }
 
+.likes {
+    width: 550px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgb(70, 70, 70);
+}
+
 
 
 
