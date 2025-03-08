@@ -135,10 +135,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
                     <p><strong><?php echo htmlspecialchars($post['user']); ?>:</strong></p>
                     <p><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
                     <?php if (!empty($post['image'])): ?>
-                        <img src="<?php echo htmlspecialchars($post['image']); ?>" alt="Post Image" style="max-width: 300px;">
+                        <img src="<?php echo htmlspecialchars($post['image']); ?>" alt="Post Image" 
+                        style="max-width: 500px;  border-radius: 15px; min-width:500px ; max-height: 300px; object-fit:cover;
+                        object-position: center;">
                     <?php endif; ?>
 
-                    <p>
+                    <p class = "likes">
                         <!-- Like Icon -->
                         <i class="fa-regular fa-heart like-icon" data-index="<?php echo $index; ?>"></i>
                         <span id="like-count-<?php echo $index; ?>"><?php echo $post['likes']; ?></span>
