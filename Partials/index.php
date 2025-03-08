@@ -2,9 +2,12 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+session_start();
 
 include "header.php";
 include("database.php");
+ 
+
 if (!isset($_COOKIE["cookie_consent"])) {
 
 ?>
@@ -87,7 +90,8 @@ if (!isset($_COOKIE["cookie_consent"])) {
         } elseif (empty($password)){
             echo "Please enter your password"; 
         } else {
-            $sql = "SELECT password FROM users WHERE user = '$username' ";
+            $sql = "SELECT user, password, profile_pic, age, bio FROM users WHERE user = '$username'";
+
             $result = mysqli_query($conn, $sql);
 
             if (mysqli_num_rows($result) > 0) {
@@ -95,18 +99,21 @@ if (!isset($_COOKIE["cookie_consent"])) {
                 $hash = $row["password"];
 
                 if (password_verify($password, $hash)) {
-                    $_SESSION["username"] = $username;
-                    echo "Login successful";
-                    header("Location: post.php");
 
-                    session_start();
-                    $_SESSION['user'] = 'username';
+                    $_SESSION['user'] = $row['user'];
+                    $_SESSION['profile_pic'] = $row['profile_pic'];
+                    $_SESSION['age'] = $row['age'];
+                    $_SESSION['bio'] = $row['bio'];
+
+                    echo "Login successful";
+                    header("location: post.php");
                     exit;
+
                 } else {
                     echo "<p class = 'error'>Incorrect username or password</p>";
                 }
             } else {
-                echo "<p class = 'error'>Incorrect username or password </p>";
+                echo "<p class = 'error'>user not found</p>";
                 
             }
         }

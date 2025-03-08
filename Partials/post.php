@@ -1,8 +1,15 @@
 <?php
+
+
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-session_start();
+include("database.php");
+
+
+
+
 
 // Redirect to login if not logged in
 if (!isset($_SESSION['user'])) {
@@ -60,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
 <div class="headerSami">
     <div class="leftHeader">
         <li><a href="#"><img class="chirpifyLogo" src="Image/Chripify.png" alt=""> <h3>Chirpify</h3></a></li>
+        
     </div>
 
     <div class="middleHeader">
@@ -97,13 +105,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
         <li class="down"><a href="#"><i class="fas fa-crown"></i><span>Premium</span></a></li>
         <li class="down"><a href="#"><i class="fa fa-bars"></i><span>More</span></a></li>
         <li class="down"><a href="index.php"><i class="fa-solid fa-right-from-bracket"></i><span>Log out</span></a></li>
+        <li class= "underPro">
+        <a href="#">
+            <img src="<?php echo $_SESSION["profile_pic"] ?>" alt=""> 
+            <p> <?php echo $_SESSION["user"] ?> </p>
+            <span> <?php echo "@" . $_SESSION["user"] ?>  </span>
+        </a></li>
 
     </ul>
 </nav>
 
 <div class="body">
     <div class="happening">
-        <img class="profileImg" src="image/profileimg.png" alt="">
+    <img class="profileImg" src="<?php echo $_SESSION['profile_pic']; ?>" alt="">
 
         <!-- FIX: Corrected action URL -->
         <form class="form" action="" method="post" enctype="multipart/form-data">

@@ -1,9 +1,8 @@
 <?php
-include "header.php";
-session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+include "header.php";
 include("database.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
