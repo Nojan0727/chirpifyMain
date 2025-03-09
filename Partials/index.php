@@ -110,10 +110,10 @@ if (!isset($_COOKIE["cookie_consent"])) {
                     exit;
 
                 } else {
-                    echo "<p class = 'error'>Incorrect username or password</p>";
+                    echo "<p class = 'loginError'>Incorrect username or password</p>";
                 }
             } else {
-                echo "<p class = 'error'>user not found</p>";
+                echo "<p class = 'loginError'>Incorrect username or password</p>";
                 
             }
         }

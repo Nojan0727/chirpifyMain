@@ -102,6 +102,14 @@ body {
 }
 .loginError {
     position: relative;
+    top: -300px; 
+    color: red;
+    left: 700px;
+    width: 300px;
+}
+
+.registerError {
+    position: relative;
     top: 50px; 
     color: red;
     left: 700px;
@@ -492,8 +500,11 @@ p a:hover {
     top: 15px;
     left: -115px;
     margin-left: 100px;
-    width: 45px;
-    border-radius: 60px;
+    width: 40px;              
+    height: 40px;             
+    border-radius: 50%;        
+    object-fit: cover;         
+    object-position: center;     
     cursor: pointer;
 }
 
@@ -532,12 +543,16 @@ p a:hover {
     border-bottom: 1px solid rgb(70, 70, 70);
 }
 .profileImg{
-    position: relative;
+    width: 45px;              
+    height: 45px;             
+    border-radius: 50%;        
+    object-fit: cover;         
+    object-position: center;         
+    position: relative;   
     top: 15px;
     left: -80px;
     margin-left: 100px;
-    width: 45px;
-    border-radius: 60px;
+    border-radius: 50%;
     cursor: pointer;
 }
 
@@ -587,19 +602,31 @@ p a:hover {
 }
 
 .likes {
+    position: relative;
+    left: 50px;
    padding-bottom: 10px;
    padding-top: 10px;
    cursor: pointer;
+}
+.like {
+    padding-right: 10px;
+}
+.like i:hover{
+    color: red;
+}
+.repost i:hover{
+    color: rgb(0, 255, 30);
 }
 
 
 .names img {
     position: relative;
-    width: 40px;
-    border-radius: 60px;
+    width: 40px;              
+    height: 40px;             
+    border-radius: 50%;        
+    object-fit: cover;         
+    object-position: center;     
     cursor: pointer;
-    object-fit: cover;
-    object-position: center;
 }
 .names strong{
     position: relative;
@@ -612,6 +639,42 @@ p a:hover {
     color: grey;
 }
 
+.searchResult {
+    width: 100px;
+    position: relative;
+    left: 10px;  top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    
+}
+.searchResult:hover {
+    background-color: rgba(255, 255, 255, 0.271);
+    border-radius: 5px;
+    transition: 0.4s;
+}
+
+.searchResult img{
+    position: relative;
+    width: 40px;              
+    height: 40px;             
+    border-radius: 50%;        
+    object-fit: cover;         
+    object-position: center;     
+    cursor: pointer;
+}
+.searchResult strong{
+    position: relative;
+    top: -30px; left:45px ;
+    text-transform: capitalize;
+}
+.searchResult span{
+    position: relative;
+    top: -30px; left:45px;
+    margin-right: 200px;
+    color: grey;
+
+}
+
 .content {
     position: relative;
     top: -20px; left: 45px;
@@ -621,6 +684,16 @@ p a:hover {
     left: 45px;
 }
 
+
+.searchResult {
+    position: relative;
+    top: 70px; left: -300px;
+    width: 200px;
+}
+.searchResult img {
+    max-width: 300px;
+    max-height: x;
+}
 
 
 
