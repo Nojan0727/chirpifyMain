@@ -77,9 +77,9 @@ $current_user = $_SESSION['user'];
         <?php if (count($following) > 0): ?>
             <ul>
                 <?php foreach ($following as $username => $user): ?>
-                    <li class="follow-item">
+                    <li class="followItem">
                         <img class="profileImg" src="image/profileimg.png"<?php echo htmlspecialchars($user['']); ?>" alt="Profile Picture">
-                        <div class="follow-user-info">
+                        <div class="followUserInfo">
                             <p><strong><?php echo htmlspecialchars($user['name']); ?></strong> (@<?php echo htmlspecialchars($username); ?>)</p>
                         </div>
                     </li>
