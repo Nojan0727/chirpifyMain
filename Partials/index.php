@@ -1,5 +1,13 @@
 <?php
+<<<<<<< HEAD
 session_start();
+=======
+global $conn;
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
+>>>>>>> f034c64 (V.0.0.0)
 include "header.php";
 include "database.php";
 
