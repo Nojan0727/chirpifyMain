@@ -6,20 +6,26 @@ include "header.php";
 include("database.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-
     $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
     $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
-    $profilePic = $_FILES["profilePic"];
+
+        
+
+    if (isset($_FILES["profilePic"]["name"]) && isset($_FILES["profilePic"]["error"])){
+        $profilePic = $_FILES["profilePic"];
+    }else {
+        $profilePic = null;
+    }
+
     $age = filter_input(INPUT_POST, "age", FILTER_SANITIZE_NUMBER_INT);
     $profileBio = filter_input(INPUT_POST, "bio", FILTER_SANITIZE_SPECIAL_CHARS);
     $error = "";
+    
 
     if (empty($username) || empty($password) || empty($profilePic['name']) || empty($profileBio) || empty($age)) {
-        echo "Please fill out all fields.";
+        echo "<p class= 'registerError'>pleas fill evrything in the registration </p>";
     
     }else {
-        
-
         $aploud = "uploads/";
         $file_name = $aploud . basename ($profilePic["name"]);;
         $aploud_check = 1;

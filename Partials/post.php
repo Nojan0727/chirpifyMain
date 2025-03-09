@@ -78,17 +78,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
 
     <div class="rightHeader">
         
-        <form action="" method="GET">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET">
             <label>
-                <input type="text" name="query" style="color: white;" placeholder="Looking for something?">
+                <input type="text" name="search" style="color: white;" placeholder="Looking for something?">
             </label>
             <button class="searchButton" type="submit">Search</button>
         </form>
 
         <?php
-        if (isset($_GET['query'])) {
-            $searchTerm = htmlspecialchars($_GET['query']);
-            echo "<p class= 'searchQuery'>You searched for: <strong>" . $searchTerm . "</strong></p>";
+        if ($_SERVER["REQUEST_METHOD"] == "GET" ) {
+            $search = htmlspecialchars($_GET['search']);
+            $write = $search;
+
+            $search_result = "SELECT * FROM users WHERE user LIKE  '%$write%' ORDER BY id DESC ";
+            $search_test = mysqli_query($conn, $search_result);
+
+            if (mysqli_num_rows($search_test) == 0){
+                echo "<p class= 'searchQuery'>No user found with the name <strong>" . $write . "</strong></p>";
+            }else {
+                while ($check_result = mysqli_fetch_assoc($search_test)) {
+                    $profile_pic = $check_result["profile_pic"];
+                    $username = $check_result["user"];
+                    
+                    echo "<div class='searchResult'>";
+                    echo "<img class='postImg' src='" . $profile_pic . "' alt='Profile Picture'>";
+                    echo "<strong>" . htmlspecialchars($username) . "</strong>";
+                    echo "<span>@" . htmlspecialchars($username) . "</span>";
+                    echo "</div>";
+
+                }
+
+
+            }
+
+
+
+            
+
         }
         ?>
 
@@ -140,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
                      <p class = "names">
                         <img class="postImg" src="<?php echo $post['profile_pic']; ?>" >
                         <strong><?php echo htmlspecialchars($post['user']); ?></strong>
-                        <span>@<?php echo htmlspecialchars($post['user']); ?></spanp>
+                        <span>@<?php echo htmlspecialchars($post['user']); ?></span>
                     </p>
 
                     <p class = "content"> 
@@ -157,12 +183,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
 
                     <p class = "likes">
                         <!-- Like Icon -->
+                    <span class = "like">
                         <i class="fa-regular fa-heart like-icon" data-index="<?php echo $index; ?>"></i>
                         <span id="like-count-<?php echo $index; ?>"><?php echo $post['likes']; ?></span>
+                    </span>
 
                         <!-- Repost Icon -->
+                    <span class = "repost">
                         <i class="fa-solid fa-retweet repost-icon" data-index="<?php echo $index; ?>"></i>
                         <span id="repost-count-<?php echo $index; ?>"><?php echo $post['reposts']; ?></span>
+                    </span>
                     </p>
                 </div>
             <?php endforeach; ?>
