@@ -43,19 +43,7 @@ if (!isset($_COOKIE["cookie_consent"])) {
 }
 
 ?>
-
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chirpify - Login</title>
-    <link rel="stylesheet" href="../Main.css">
-    <script defer src="Main.js"></script>
-</head>
-<body>
-
-<div class="container">
+    <div class="container">
    
     <h2>Login</h2>
     <form action="" method = "post">
