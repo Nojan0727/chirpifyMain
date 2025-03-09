@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<div class="headerSami">
+<div class="header">
     <div class="leftHeader">
         <li><a href="#"><img class="chirpifyLogo" src="Image/Chripify.png" alt=""> <h3>Chirpify</h3></a></li>
     </div>
