@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
+<<<<<<< HEAD
 });
 function toggleForm(formType) {
     document.getElementById('formTitle').innerText = formType === 'register' ? 'Register' : 'Login';
@@ -59,3 +60,6 @@ function toggleForm(formType) {
     document.getElementById('registerForm').style.display = formType === 'register' ? 'block' : 'none';
 }
 window.location.href = "post.php";
+=======
+});
+>>>>>>> 8204a06 (V.0.0.0)
