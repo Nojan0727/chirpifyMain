@@ -11,7 +11,16 @@ function acceptCookies() {
     document.getElementById("cookieBox").style.display = "none";
     // Avoid reloading the page
 }
+function toggleTerms() {
+    console.log("Toggling terms and conditions visibility");
+    let termsBox = document.getElementById("termsBox");
 
+    if (termsBox.style.display === "none" || termsBox.style.display === "") {
+        termsBox.style.display = "block";
+    } else {
+        termsBox.style.display = "none";
+    }
+}
 function rejectCookies() {
     console.log("Reject button clicked!");
     window.location.href = "https://www.google.com";
