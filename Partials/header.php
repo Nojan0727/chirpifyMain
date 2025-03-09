@@ -19,11 +19,8 @@
     </div>
     <nav>
         <ul>
-            <li><a href="index.php">Home</a></li>
+            <li><a href="register.php">Sign up</a></li>
             <?php if (isset($_SESSION['user'])): ?>
-
-            <?php else: ?>
-                <li><a href="register.php">Sign Up</a></li>
             <?php endif; ?>
         </ul>
     </nav>
