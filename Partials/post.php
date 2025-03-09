@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
         'likes' => 0,
         'reposts' => 0
     ];
-    
+
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
@@ -60,20 +60,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
 </head>
 
 <body>
-<div class="headerSami">
+<div class="header">
     <div class="leftHeader">
-        <li><a href="#"><img class="chirpifyLogo" src="Image/Chripify.png" alt=""> <h3>Chirpify</h3></a></li>
-        
+        <li><a href="profile.php"><img class="chirpifyLogo" src="Image/Chripify.png" alt=""> <h3>Chirpify</h3></a></li>
     </div>
-
     <div class="middleHeader">
-        <button>For You</button>
-        <button>Following</button>
+        <a href="recommended.php">
+            <button>For You</button>
+        </a>
+        <a href="Followers.php"> <button>Following</button>
+        </a>
     </div>
 
     <div class="rightHeader">
-        
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET">
+
+        <form action="" method="GET">
             <label>
                 <input type="text" name="search" style="color: white;" placeholder="Looking for something?">
             </label>
@@ -176,15 +177,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
                     <?php endif; ?>
                     </p>
 
-                    <p class = "likes">
-                        <!-- Like Icon -->
-                    <span class = "like">
+                    <p>
                         <i class="fa-regular fa-heart like-icon" data-index="<?php echo $index; ?>"></i>
                         <span id="like-count-<?php echo $index; ?>"><?php echo $post['likes']; ?></span>
                     </span>
 
-                        <!-- Repost Icon -->
-                    <span class = "repost">
                         <i class="fa-solid fa-retweet repost-icon" data-index="<?php echo $index; ?>"></i>
                         <span id="repost-count-<?php echo $index; ?>"><?php echo $post['reposts']; ?></span>
                     </span>
@@ -197,15 +194,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
     </div>
 </div>
 
-<script>
-    function likePost(index) {
-        alert('Liked post ' + index);
-    }
-
-    function repost(index) {
-        alert('Reposted post ' + index);
-    }
-</script>
 
 </body>
 </html>

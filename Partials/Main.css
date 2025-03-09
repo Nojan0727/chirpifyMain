@@ -155,7 +155,7 @@ nav ul li a:hover {
 
 .container {
     position: relative;
-    top: 60px; left: 650px;
+    top: 60px; left: 35em;
     background-color: #1a1a1a;
     padding: 20px;
     border-radius: 8px;
@@ -327,7 +327,7 @@ p a:hover {
 }
 
 
-.headerSami {
+.header {
     position: fixed;
     display: flex;
     height: 60px;
@@ -376,10 +376,11 @@ p a:hover {
 
 .middleHeader {
     display: flex;
-    flex: 1;
+    justify-content: space-evenly;
+    align-items: center;
     min-width: 580px;
     border: 1px solid rgb(70, 70, 70);
-    
+
 }
 .middleHeader button {
     background-color:transparent;
@@ -902,3 +903,27 @@ p a:hover {
         cursor: pointer;
     }
 
+.like-icon.liked {
+    color: white;
+}
+
+.repost-icon.reposted {
+    color: white;
+}
+.follow-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.follow-user-info p {
+    margin: 0;
+    font-size: 16px;
+}

@@ -2,7 +2,6 @@ function acceptCookies() {
     console.log("Accept button clicked!");
     document.cookie = "cookie_consent=accepted; path=/; max-age=" + (60 * 60 * 24 * 30);
 
-
     if (document.cookie.includes("cookie_consent=accepted")) {
         console.log("Cookie was set successfully!");
     } else {
@@ -10,7 +9,7 @@ function acceptCookies() {
     }
 
     document.getElementById("cookieBox").style.display = "none";
-    location.reload();
+    // Avoid reloading the page
 }
 
 function rejectCookies() {
@@ -20,40 +19,39 @@ function rejectCookies() {
 
 document.addEventListener("DOMContentLoaded", function () {
     console.log("JavaScript Loaded!");
-});
-function toggleTerms() {
-    let termsBox = document.getElementById("termsBox");
-    if (termsBox.style.display === "none" || termsBox.style.display === "") {
-        termsBox.style.display = "block";
-    } else {
-        termsBox.style.display = "none";
-    }
-}
-// Like Post Function - Now updates the button text
-function likePost(index) {
-    let button = document.querySelector(`button[data-like="${index}"]`);
-    let count = parseInt(button.dataset.count) + 1;
-    button.dataset.count = count;
-    button.innerText = `Like (${count})`;
-}
 
-// Repost Function - Now updates the button text
-function repost(index) {
-    let button = document.querySelector(`button[data-repost="${index}"]`);
-    let count = parseInt(button.dataset.count) + 1;
-    button.dataset.count = count;
-    button.innerText = `Repost (${count})`;
-}
+    // Toggle like color
+    const likeIcons = document.querySelectorAll('.like-icon');
+    likeIcons.forEach(icon => {
+        icon.addEventListener('click', function() {
+            this.classList.toggle('liked');
+            const index = this.dataset.index;
+            const likeCount = document.getElementById('like-count-' + index);
+            likeCount.innerText = parseInt(likeCount.innerText) + (this.classList.contains('liked') ? 1 : -1);
+        });
+    });
 
-// Search Trigger on 'Enter' Press
-document.querySelector('input[name="query"]').addEventListener('keypress', function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault(); // Prevent form from actually submitting
-        let searchQuery = this.value.trim();
-        if (searchQuery !== "") {
-            window.location.href = "?query=" + encodeURIComponent(searchQuery); // Redirect with query
+    // Toggle repost color
+    const repostIcons = document.querySelectorAll('.repost-icon');
+    repostIcons.forEach(icon => {
+        icon.addEventListener('click', function() {
+            this.classList.toggle('reposted');
+            const index = this.dataset.index;
+            const repostCount = document.getElementById('repost-count-' + index);
+            repostCount.innerText = parseInt(repostCount.innerText) + (this.classList.contains('reposted') ? 1 : -1);
+        });
+    });
+
+    // Search Trigger on 'Enter' Press
+    document.querySelector('input[name="query"]').addEventListener('keypress', function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            let searchQuery = this.value.trim();
+            if (searchQuery !== "") {
+                window.location.href = "?query=" + encodeURIComponent(searchQuery);
+            }
         }
-    }
+    });
 });
 function toggleForm(formType) {
     document.getElementById('formTitle').innerText = formType === 'register' ? 'Register' : 'Login';
