@@ -1,15 +1,10 @@
 <?php
 
-
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include("database.php");
-
-
-
-
 
 if (!isset($_SESSION['user'])) {
     header("Location: index.php");
@@ -21,12 +16,11 @@ if (!is_dir($upload_dir)) {
     mkdir($upload_dir, 0777, true);
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
     $content = trim($_POST['content']);
     $image_path = "";
 
-    if (!empty($_FILES['image']['name'])) {
+    if (!empty($_FILES['image']['name']) && $_FILES['image']['error'] === 0) {
         $file_name = basename($_FILES['image']['name']);
         $target_file = $upload_dir . $file_name;
 
@@ -38,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
     $_SESSION['posts'][] = [
         'user' => $_SESSION['user'],
         'content' => $content,
-        'profile_pic' => $_SESSION['profile_pic'],
+        'profile_pic' => isset($_SESSION['profile_pic']) && file_exists($_SESSION['profile_pic']) ? $_SESSION['profile_pic'] : 'uploads/default.jpg',
         'image' => $image_path,
         'likes' => 0,
         'reposts' => 0
@@ -47,7 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
+
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -95,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
                 while ($check_result = mysqli_fetch_assoc($search_test)) {
                     $profile_pic = $check_result["profile_pic"];
                     $username = $check_result["user"];
-                    
+
                     echo "<div class='searchResult'>";
                     echo "<img class='postImg' src='" . $profile_pic . "' alt='Profile Picture'>";
                     echo "<strong>" . htmlspecialchars($username) . "</strong>";
@@ -109,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
 
 
 
-            
+
 
         }
         ?>
@@ -129,18 +127,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
         <li class="down"><a href="#"><i class="fa fa-bars"></i><span>More</span></a></li>
         <li class="down"><a href="index.php"><i class="fa-solid fa-right-from-bracket"></i><span>Log out</span></a></li>
         <li class= "underPro">
-        <a href="#">
-            <img src="<?php echo $_SESSION["profile_pic"] ?>" alt=""> 
-            <p> <?php echo $_SESSION["user"] ?> </p>
-            <span> <?php echo "@" . $_SESSION["user"] ?>  </span>
-        </a></li>
+            <a href="#">
+                <img src="<?php echo $_SESSION["profile_pic"] ?>" alt="">
+                <p> <?php echo $_SESSION["user"] ?> </p>
+                <span> <?php echo "@" . $_SESSION["user"] ?>  </span>
+            </a></li>
 
     </ul>
 </nav>
 
 <div class="body">
     <div class="happening">
-    <img class="profileImg" src="<?php echo $_SESSION['profile_pic']; ?>" alt="">
+        <img class="profileImg" src="<?php echo $_SESSION['profile_pic']; ?>" alt="">
 
         <!-- FIX: Corrected action URL -->
         <form class="form" action="" method="post" enctype="multipart/form-data">
@@ -151,40 +149,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
             <button type="submit">Post!</button>
         </form>
 
-        <div style = "postion: relative; border-bottom: 1px solid rgb(70, 70, 70); height: 0 ;">
-        <h2 class="recentPost">Recent Posts</h2>
+        <div style = "position: relative; border-bottom: 1px solid rgb(70, 70, 70); height: 0 ;">
+            <h2 class="recentPost">Recent Posts</h2>
         </div>
-        
+
         <?php if (!empty($_SESSION['posts'])): ?>
             <?php foreach (array_reverse($_SESSION['posts']) as $index => $post): ?>
                 <div class="post">
-                    
-                     <p class = "names">
+
+                    <p class = "names">
                         <img class="postImg" src="<?php echo $post['profile_pic']; ?>" >
                         <strong><?php echo htmlspecialchars($post['user']); ?></strong>
                         <span>@<?php echo htmlspecialchars($post['user']); ?></span>
                     </p>
 
-                    <p class = "content"> 
+                    <p class = "content">
                         <?php echo nl2br(htmlspecialchars($post['content'])); ?>
                     </p>
 
                     <p class= "postedImg">
-                    <?php if (!empty($post['image'])): ?>
-                        <img src="<?php echo htmlspecialchars($post['image']); ?>" alt="Image" 
-                        style="max-width: 500px;  border-radius: 15px; min-width:500px ; max-height: 300px; object-fit:cover;
+                        <?php if (!empty($post['image'])): ?>
+                            <img src="<?php echo htmlspecialchars($post['image']); ?>" alt="Image"
+                                 style="max-width: 500px;  border-radius: 15px; min-width:500px ; max-height: 300px; object-fit:cover;
                         object-position: center;">
-                    <?php endif; ?>
+                        <?php endif; ?>
                     </p>
 
                     <p>
                         <i class="fa-regular fa-heart like-icon" data-index="<?php echo $index; ?>"></i>
-                        <span id="like-count-<?php echo $index; ?>"><?php echo $post['likes']; ?></span>
-                    </span>
+                        <span id="like-count-<?php echo $index; ?>"><?php echo $post['likes']; ?>
+                        </span>
 
                         <i class="fa-solid fa-retweet repost-icon" data-index="<?php echo $index; ?>"></i>
-                        <span id="repost-count-<?php echo $index; ?>"><?php echo $post['reposts']; ?></span>
-                    </span>
+                        <span id="repost-count-<?php echo $index; ?>"><?php echo $post['reposts']; ?>
+                        </span>
                     </p>
                 </div>
             <?php endforeach; ?>
