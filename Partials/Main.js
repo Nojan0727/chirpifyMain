@@ -10,6 +10,7 @@ function acceptCookies() {
     }
 
     document.getElementById("cookieBox").style.display = "none";
+    console.log("trigger accept cookies"),
     location.reload();
 }
 
@@ -29,6 +30,29 @@ function toggleTerms() {
         termsBox.style.display = "none";
     }
 }
+
+
+function INVcommentForm(event, index) {
+    let commentForm = document.getElementById('commentform' + index.toString());
+    let darkEffect = document.getElementById("darkEffect");
+    let body = document.body;
+    let html = document.documentElement;
+
+    if (commentForm.style.display === "none" ) {
+        commentForm.style.display = "block";
+        darkEffect.style.display = "block";
+        
+  
+    } else {
+        commentForm.style.display = "none";
+        darkEffect.style.display = "none";
+
+        //body.style.overflow = "auto";
+        //html.style.overflow = "auto";
+    }
+}
+
+
 // Like Post Function - Now updates the button text
 function likePost(index) {
     let button = document.querySelector(`button[data-like="${index}"]`);
@@ -38,7 +62,7 @@ function likePost(index) {
 }
 
 // Repost Function - Now updates the button text
-function repost(index) {
+function rst(index) {
     let button = document.querySelector(`button[data-repost="${index}"]`);
     let count = parseInt(button.dataset.count) + 1;
     button.dataset.count = count;
