@@ -65,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
 </head>
 
 <body>
+    
 <div class="headerSami">
     <div class="leftHeader">
         <li><a href="#"><img class="chirpifyLogo" src="Image/Chripify.png" alt=""> <h3>Chirpify</h3></a></li>
@@ -86,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
         </form>
 
         <?php
-        if ($_SERVER["REQUEST_METHOD"] == "GET" ) {
+        if (isset($_GET["search"])) {
             $search = htmlspecialchars($_GET['search']);
             $write = $search;
 
@@ -107,14 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
                     echo "</div>";
 
                 }
-
-
             }
-
-
-
-            
-
         }
         ?>
 
@@ -146,7 +140,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
     <div class="happening">
     <img class="profileImg" src="<?php echo $_SESSION['profile_pic']; ?>" alt="">
 
-        <!-- FIX: Corrected action URL -->
         <form class="form" action="" method="post" enctype="multipart/form-data">
             <label class="happeningLabel">
                 <textarea name="content" placeholder="What's Happening!?" required></textarea>
@@ -155,46 +148,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
             <button type="submit">Post!</button>
         </form>
 
+
         <div style = "postion: relative; border-bottom: 1px solid rgb(70, 70, 70); height: 0 ;">
         <h2 class="recentPost">Recent Posts</h2>
         </div>
-        
+
+        <div id = "darkEffect" class = "darkEffect">d</div>
+
         <?php if (!empty($_SESSION['posts'])): ?>
             <?php foreach (array_reverse($_SESSION['posts']) as $index => $post): ?>
                 <div class="post">
-                    
-                     <p class = "names">
-                        <img class="postImg" src="<?php echo $post['profile_pic']; ?>" >
-                        <strong><?php echo htmlspecialchars($post['user']); ?></strong>
-                        <span>@<?php echo htmlspecialchars($post['user']); ?></span>
-                    </p>
+    <p class="names">
+        <img class="postImg" src="<?php echo $post['profile_pic']; ?>" >
+        <strong><?php echo htmlspecialchars($post['user']); ?></strong>
+        <span>@<?php echo htmlspecialchars($post['user']); ?></span>
+    </p>
 
-                    <p class = "content"> 
-                        <?php echo nl2br(htmlspecialchars($post['content'])); ?>
-                    </p>
+    <p class="content">
+        <?php echo nl2br(htmlspecialchars($post['content'])); ?>
+    </p>
 
-                    <p class= "postedImg">
-                    <?php if (!empty($post['image'])): ?>
-                        <img src="<?php echo htmlspecialchars($post['image']); ?>" alt="Image" 
-                        style="max-width: 500px;  border-radius: 15px; min-width:500px ; max-height: 300px; object-fit:cover;
-                        object-position: center;">
-                    <?php endif; ?>
-                    </p>
+    <p class="postedImg">
+        <?php if (!empty($post['image'])): ?>
+            <img src="<?php echo htmlspecialchars($post['image']); ?>" alt="Image" 
+            style="max-width: 500px;  border-radius: 15px; min-width:500px ; max-height: 300px; object-fit:cover;
+            object-position: center;">
+        <?php endif; ?>
+    </p>
 
-                    <p class = "likes">
-                        <!-- Like Icon -->
-                    <span class = "like">
-                        <i class="fa-regular fa-heart like-icon" data-index="<?php echo $index; ?>"></i>
-                        <span id="like-count-<?php echo $index; ?>"><?php echo $post['likes']; ?></span>
-                    </span>
+    <p class="likes">
 
-                        <!-- Repost Icon -->
-                    <span class = "repost">
-                        <i class="fa-solid fa-retweet repost-icon" data-index="<?php echo $index; ?>"></i>
-                        <span id="repost-count-<?php echo $index; ?>"><?php echo $post['reposts']; ?></span>
-                    </span>
-                    </p>
-                </div>
+        <span class="like">
+            <i class="fa-regular fa-heart like-icon" data-index="<?php echo $index; ?>"></i>
+            <span id="like-count-<?php echo $index; ?>"><?php echo $post['likes']; ?></span>
+        </span>
+
+        <span class="repost">
+            <i class="fa-solid fa-retweet repost-icon" data-index="<?php echo $index; ?>"></i>
+            <span id="repost-count-<?php echo $index; ?>"><?php echo $post['reposts']; ?></span>
+        </span>
+
+        <span class="commentBlock" onclick="INVcommentForm(event, <?php echo $index ?>)">
+            <span><i class="fa-solid fa-comment"></i> </span>
+        </span>
+    </p>
+
+    <form class="commentForm" id="<?php echo "commentform" . $index ?>" style="display:none;" method="post">
+        <span class="commentBlock" onclick="INVcommentForm(event, <?php echo $index ?>)">
+            <span><i class="fa-solid fa-x"></i> </span>
+        </span>
+        <label class="commentPro" for="">
+            <img src="<?php echo $_SESSION["profile_pic"]; ?>" alt=""> <strong> <?php echo $_SESSION["user"]; ?> </strong>
+            <p><?php echo "@" . $_SESSION["user"]; ?></p>
+            <textarea name="comment_text" placeholder="Post your reply"></textarea>
+        </label>
+        <button>Post</button>
+    </form>
+</div>
+
             <?php endforeach; ?>
         <?php else: ?>
             <p class="post">No posts yet.</p>
@@ -211,6 +222,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
         alert('Reposted post ' + index);
     }
 </script>
+
+<script src="Main.js"></script>
 
 </body>
 </html>
