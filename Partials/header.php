@@ -22,7 +22,7 @@
             <?php if (isset($_SESSION['user'])): ?>
 
             <?php else: ?>
-                <li><a href="login.php">Login</a></li>
+                <li><a href="index.php">Login</a></li>
                 <li><a href="register.php">Sign Up</a></li>
             <?php endif; ?>
         </ul>

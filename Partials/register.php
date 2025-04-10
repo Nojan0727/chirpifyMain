@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include "header.php";
-include("database.php");
+require("database.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -50,19 +50,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users (user, password, age, bio, profile_pic) VALUES ('$username', '$hash', '$age', '$profileBio', '$file_name')";
+        $sql = "INSERT INTO users (user, password, age, bio, profile_pic) VALUES (:username, :hash, :age, :profile_bio, :file_name)";
+
+        $binding = $conn->prepare($sql);
+
+        $binding->bindParam(':username', $username);
+        $binding->bindparam(':hash', $hash);
+        $binding->bindparam(':age', $age);
+        $binding->bindparam(':profile_bio', $profileBio);
+        $binding->bindparam(':file_name', $file_name);
+
+        
 
        try {
-        mysqli_query($conn, $sql);
+        
+        $binding->execute();
         echo "Registration succesfull";
 
         header("location: index.php");
-       }catch (mysqli_sql_exception){
+        exit;
+       }catch (PDOException $e){
         echo "<p class = 'error'>This Username is allready taken</p>";
        }
     }
 }
-    mysqli_close($conn);
 ?>
 
 <!doctype html>

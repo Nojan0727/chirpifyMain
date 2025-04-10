@@ -1,36 +1,80 @@
-function acceptCookies() {
-    console.log("Accept button clicked!");
-    document.cookie = "cookie_consent=accepted; path=/; max-age=" + (60 * 60 * 24 * 30);
-
-
-    if (document.cookie.includes("cookie_consent=accepted")) {
-        console.log("Cookie was set successfully!");
-    } else {
-        console.log("Failed to set cookie.");
-    }
-
-    document.getElementById("cookieBox").style.display = "none";
-    console.log("trigger accept cookies"),
-    location.reload();
-}
-
-function rejectCookies() {
-    console.log("Reject button clicked!");
-    window.location.href = "https://www.google.com";
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     console.log("JavaScript Loaded!");
+
+    // Like button event listeners
+    document.querySelectorAll('.like-icon').forEach(icon => {
+        icon.addEventListener('click', function () {
+            const index = this.getAttribute('data-index');
+            likePost(index, this);
+        });
+    });
+
+    // Repost button event listeners
+    document.querySelectorAll('.repost-icon').forEach(icon => {
+        icon.addEventListener('click', function () {
+            const index = this.getAttribute('data-index');
+            repost(index, this);
+        });
+    });
 });
-function toggleTerms() {
-    let termsBox = document.getElementById("termsBox");
-    if (termsBox.style.display === "none" || termsBox.style.display === "") {
-        termsBox.style.display = "block";
-    } else {
-        termsBox.style.display = "none";
-    }
+
+// Like post function
+function likePost(index, icon) {
+    fetch('update_post.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            index: index,
+            action: 'like'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const countElement = document.getElementById(`like-count-${index}`);
+            countElement.textContent = data.count;
+            icon.classList.toggle('liked');
+        } else {
+            console.error('Error liking post:', data.error);
+            alert('Failed to like the post: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+        alert('An error occurred while liking the post.');
+    });
 }
 
+// Repost function
+function repost(index, icon) {
+    fetch('update_post.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            index: index,
+            action: 'repost'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const countElement = document.getElementById(`repost-count-${index}`);
+            countElement.textContent = data.count;
+            icon.classList.toggle('reposted');
+        } else {
+            console.error('Error reposting post:', data.error);
+            alert('Failed to repost the post: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+        alert('An error occurred while reposting the post.');
+    });
+}
 
 function INVcommentForm(event, index) {
     let commentForm = document.getElementById('commentform' + index.toString());
@@ -41,41 +85,14 @@ function INVcommentForm(event, index) {
     if (commentForm.style.display === "none" ) {
         commentForm.style.display = "block";
         darkEffect.style.display = "block";
+        comment_text.style.display = "block";
         
   
     } else {
         commentForm.style.display = "none";
         darkEffect.style.display = "none";
-
-        //body.style.overflow = "auto";
-        //html.style.overflow = "auto";
+        comment_text.style.display = "block";
     }
-}
+};
 
 
-// Like Post Function - Now updates the button text
-function likePost(index) {
-    let button = document.querySelector(`button[data-like="${index}"]`);
-    let count = parseInt(button.dataset.count) + 1;
-    button.dataset.count = count;
-    button.innerText = `Like (${count})`;
-}
-
-// Repost Function - Now updates the button text
-function rst(index) {
-    let button = document.querySelector(`button[data-repost="${index}"]`);
-    let count = parseInt(button.dataset.count) + 1;
-    button.dataset.count = count;
-    button.innerText = `Repost (${count})`;
-}
-
-// Search Trigger on 'Enter' Press
-document.querySelector('input[name="query"]').addEventListener('keypress', function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault(); // Prevent form from actually submitting
-        let searchQuery = this.value.trim();
-        if (searchQuery !== "") {
-            window.location.href = "?query=" + encodeURIComponent(searchQuery); // Redirect with query
-        }
-    }
-});

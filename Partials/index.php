@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 session_start();
 
 include "header.php";
-include("database.php");
+require("database.php");
  
 
 if (!isset($_COOKIE["cookie_consent"])) {
@@ -90,12 +90,14 @@ if (!isset($_COOKIE["cookie_consent"])) {
         } elseif (empty($password)){
             echo "Please enter your password"; 
         } else {
-            $sql = "SELECT user, password, profile_pic, age, bio FROM users WHERE user = '$username'";
+            $sql = "SELECT id, user, password, profile_pic, age, bio FROM users WHERE user = :username";
 
-            $result = mysqli_query($conn, $sql);
+            $binding = $conn->prepare($sql);
+            $binding->bindParam(':username', $username);
+            $binding->execute();
 
-            if (mysqli_num_rows($result) > 0) {
-                $row = mysqli_fetch_assoc($result);
+              if ($binding->rowCount() > 0) {
+                $row = $binding->fetch();
                 $hash = $row["password"];
 
                 if (password_verify($password, $hash)) {
@@ -104,6 +106,7 @@ if (!isset($_COOKIE["cookie_consent"])) {
                     $_SESSION['profile_pic'] = $row['profile_pic'];
                     $_SESSION['age'] = $row['age'];
                     $_SESSION['bio'] = $row['bio'];
+                    $_SESSION['id'] = $row['id']; 
 
                     echo "Login successful";
                     header("location: post.php");
@@ -119,5 +122,5 @@ if (!isset($_COOKIE["cookie_consent"])) {
         }
     }
 
-    mysqli_close($conn);
+    
 ?>
