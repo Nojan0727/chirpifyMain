@@ -1,18 +1,13 @@
-<?php  
+<?php
+$host = "localhost";
+$dbname = "learn";
+$username = "root";
+$password = "";
 
-        $db_server = "localhost";
-        $db_user = "root";
-        $db_pass = "";
-        $db_name = "learn";
-        $conn = "";
-
-    try {
-        $conn = mysqli_connect( $db_server, 
-                                $db_user, 
-                                $db_pass, 
-                                $db_name);
-    }catch (mysqli_sql_exception){
-        echo "Sorry we could'nt  Conect";
-    }
-   
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
 ?>
