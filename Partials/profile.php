@@ -1,5 +1,6 @@
 <?php
 session_start();
+require("database.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,6 +102,15 @@ session_start();
                 </div>
                 <button class="editBtn">Edit Profile</button>
             </div>
+
+            <?php 
+
+            ?>
+
+            <form action="profile.php" method = "post">
+                <label for="">name</label>
+
+            </form>
 
             <div class="tabs">
                 <button class="buttonTab active">Posts</button>
