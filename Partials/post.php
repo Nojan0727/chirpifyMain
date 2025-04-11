@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
             $image_path = $target_file;
         }
     }
-    $post_posted_at = date('Y-m-d H:i:s');
+    $post_posted_at = date('Y-m-d H:i');
     $sql = "INSERT INTO posts (post_text, user_id, post_created_at, images)
             VALUES (:post_text, :user_id, :post_created_at, :images)";
 
@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
         <li><a href="post.php"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
         <li><a href="#"><i class="fas fa-search"></i> <span>Search</span></a></li>
         <li><a href="#"><i class="fa-regular fa-compass"></i> <span>Explore</span></a></li>
-        <li><a href="#"><i class="fa-regular fa-bell"></i> <span>Messages</span></a></li>
+        <li><a href="messages.php"><i class="fa-regular fa-bell"></i> <span>Messages</span></a></li>
         <li><a href="#"><i class="fa-regular fa-envelope"></i> <span>Notification</span></a></li>
         <li><a href="#"><i class="fa-regular fa-square-plus"></i> <span>Create</span></a></li>
         <li><a href="profile.php"><i class="fa-regular fa-user"></i> <span>Profile</span></a></li>
@@ -175,6 +175,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
         <?php if (!empty($_SESSION['posts'])): ?>
     <?php foreach (array_reverse($_SESSION['posts']) as $index => $post): ?>
         <div class="post">
+
+            <p class = "postedAt"><?php echo $post["post_created_at"]; ?></p>
             <p class="names">
                 <img class="postImg" src="<?php echo isset($post['profile_pic']) ? $post['profile_pic'] : ''; ?>" >
                 <strong><?php echo isset($post['user']) ? htmlspecialchars($post['user']) : ''; ?></strong>
@@ -252,10 +254,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
 
             foreach ($comments as $comment) {
                 echo "<div class='comment'>";
+                echo "<p class='commentedAt'>" . $comment['comment_posted_at'] . "</p>";
                 echo '<img class = "commentProfile" src="' . $comment["profile_pic"] . '" alt="">';
                 echo '<strong>' . $comment["user"] . '</strong>';
-                echo "<span>@{$comment['user']}</span>";
-                if ($post['user'] === $comment['user']){
+                echo "<span>@{$comment['user']}</span>";if ($post['user'] === $comment['user']){
                     echo '<div class = "admin" >Creator</div>';
                 }
                 echo "<p>{$comment['comment_text']}</p>";

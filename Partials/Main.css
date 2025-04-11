@@ -1052,12 +1052,20 @@ p a:hover {
    display: inline-block;
 }
 .commentForm button {
-   position: absolute;
-   bottom: 10px;
-   right:10px ;
-   width: 70px;
-   background-color: white;
-   border-radius: 17px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 120px;
+    left: 465px;
+    border-radius: 10px;
+    width: 80px;
+    background-color: rgb(41, 137, 255);
+}
+.commentForm button:hover {
+    color: rgb(41, 137, 255);
+    background-color: rgb(255, 255, 255);
+    transition: 0.5s;
+    box-shadow: 0px 1px 40px rgb(41, 137, 255);
 }
 
 .darkEffect {
@@ -1115,6 +1123,23 @@ p a:hover {
     color: rgb(0, 128, 255);
     width: 50px;
     
+}
+
+.postedAt {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    color: grey;
+    font-size: 13px;
+}
+.commentedAt {
+    position: absolute;
+    top: 0px;
+    margin-left: 376px;
+    right: 200px;
+    width: 130px;
+    color: grey;
+    font-size: 13px;
 }
 
 
