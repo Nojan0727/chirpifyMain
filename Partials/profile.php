@@ -1,6 +1,9 @@
 <?php
 session_start();
+<<<<<<< HEAD
 require("database.php");
+=======
+>>>>>>> origin/main
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,6 +106,7 @@ require("database.php");
                 <button class="editBtn">Edit Profile</button>
             </div>
 
+<<<<<<< HEAD
             <?php 
 
             ?>
@@ -119,6 +123,15 @@ require("database.php");
                 <button class="buttonTab">Likes</button>
             </div>
 
+=======
+            <div class="tabs">
+                <button class="buttonTab active">Posts</button>
+                <button class="buttonTab">Replies</button>
+                <button class="buttonTab">Media</button>
+                <button class="buttonTab">Likes</button>
+            </div>
+
+>>>>>>> origin/main
             <div class="posts">
                 <?php $posts = $_SESSION['posts'] ?? []; ?>
                 <?php foreach ($posts as $index => $post): ?>
